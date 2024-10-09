@@ -5,3 +5,10 @@ html, body {
   height: 100%; /* Ensure body takes full height */
   overflow: hidden; /* Prevent scrolling if not needed */
 }
+
+:root {
+  --font: "Nimbus Sans", sans-serif; /* Ensure a fallback font */
+  --h1-font-size: 2rem;
+  --normal-font-size: 1rem;
+  --small-font-size: .813rem;
+}
