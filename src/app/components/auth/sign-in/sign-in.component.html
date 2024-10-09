@@ -1,0 +1,52 @@
+<div class="login">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login__form">
+    <h1 class="login__title">Login</h1>
+
+    <div class="login__inputs">
+      <div class="login__box">
+        <input
+          id="email_input"
+          type="email"
+          placeholder="Enter Email"
+          formControlName="email"
+          class="login__input"
+          autocomplete="off"
+        />
+        <i class="ri-mail-fill"></i>
+      </div>
+
+      <div class="login__box">
+        <input
+          id="password_input"
+          type="password"
+          placeholder="Enter Password"
+          formControlName="password"
+          class="login__input"
+          autocomplete="off"
+        />
+        <i class="ri-lock-2-fill"></i>
+      </div>
+    </div>
+
+    <div class="login__check">
+      <div class="login__check-box">
+        <input
+          type="checkbox"
+          class="login__check-input"
+          id="user-check"
+          formControlName="rememberMe"
+        />
+        <label for="user-check" class="login__check-label">Remember me</label>
+      </div>
+    </div>
+
+    <button routerLink="/catalog" id="login_button" type="submit" class="login__button" [disabled]="loginForm.invalid">
+      Login
+    </button>
+
+    <div class="login__register">
+      Don't have an account? <a routerLink="/sign-up">Register</a>
+    </div>
+  </form>
+</div>
+
