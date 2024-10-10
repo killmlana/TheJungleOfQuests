@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  private apiUrl = 'http://localhost:5110';
+
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Auth/login`, { email, password });
+  }
+
+  register(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Auth/register`, { email, password });
+  }
+
+
+  saveToken(token: string) {
+    localStorage.setItem('jwt', token); // Save token in local storage
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('jwt'); // Retrieve token from local storage
+  }
+
+  logout() {
+    localStorage.removeItem('jwt'); // Remove token from local storage
+  }
+
+}

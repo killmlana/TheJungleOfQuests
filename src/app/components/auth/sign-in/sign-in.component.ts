@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,7 +16,7 @@ import {RouterLink} from '@angular/router';
 export class SignInComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -26,9 +27,15 @@ export class SignInComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password, rememberMe } = this.loginForm.value;
-      console.log('Email:', email);
-      console.log('Password:', password);
-      console.log('Remember Me:', rememberMe);
+
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          this.authService.saveToken(response.token);
+          this.router.navigate(['/catalog']);
+        },
+        error: (error) => {
+        }
+      });
     }
   }
 }
